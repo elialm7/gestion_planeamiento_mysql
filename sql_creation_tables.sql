@@ -67,9 +67,55 @@ create table if not exists tb_materia(
 ) engine = innodb;
 
 
+create table if not exists tb_horario(
+
+	id_horario int not null auto_increment primary key, 
+	materia_id int not null,
+	user_id int not null, 
+	grado_seccion_id int not null, 
+	dia enum("lunes", "martes", "miercoles", "jueves", "viernes"),
+	turno enum("mañana", "tarde", "nocturno"), 
+	horario_fin time not null, 
+	horario_inicio time not null,
+	foreign key(materia_id) references tb_materia(id_materia), 
+	foreign key(user_id) references tb_usuarios(id_user), 
+	foreign key(grado_seccion_id) references tb_grado_seccion (id_grado_seccion)
+);
+
+create table if not exists tb_planeamiento_contenido(
+ id_contenido int not null auto_increment primary key,
+ informacion text 
+);
 
 
+create table if not exists tb_planeamiento(
 
+	id_planeamiento int not null auto_increment primary key, 
+	id_user int not null, 
+	grado_seccion_id int not null, 
+	materia_id int not null, 
+	contenido_id int not null, 	
+	foreign key(id_user) references tb_usuarios(id_user), 
+	foreign key(grado_seccion_id) references tb_grado_seccion(id_grado_seccion), 
+	foreign key(materia_id) references tb_materia (id_materia), 
+	foreign key(contenido_id) references tb_planeamiento_contenido (id_contenido)
+
+);
+
+create table if not exists tb_planeamiento_comentario(
+
+  id_planeamiento_comentario int not null auto_increment primary key, 
+  
+  comentario text , 
+  
+  id_user_fk int not null, 
+  
+  id_planeamiento_fk int not null,
+  
+  foreign key(id_user_fk) references tb_usuarios(id_user), 
+  foreign key(id_planeamiento_fk) references tb_planeamiento (id_planeamiento)
+
+);
 
 
 
