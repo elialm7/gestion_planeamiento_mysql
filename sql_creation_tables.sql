@@ -272,6 +272,27 @@ CREATE TABLE `tb_seccion` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `tb_tokens`
+--
+
+DROP TABLE IF EXISTS `tb_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tb_tokens` (
+  `activo` bit(1) DEFAULT NULL,
+  `expiracion` date DEFAULT NULL,
+  `id_token` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_usuario_fk` bigint(20) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `tipo_token` enum('GOOGLE','JWT') DEFAULT NULL,
+  PRIMARY KEY (`id_token`),
+  UNIQUE KEY `UK2wikb4oog6jq4h6est1maw7e0` (`token`),
+  KEY `FKf4vul91w29glbs347m701e40c` (`id_usuario_fk`),
+  CONSTRAINT `FKf4vul91w29glbs347m701e40c` FOREIGN KEY (`id_usuario_fk`) REFERENCES `tb_usuarios` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `tb_usuarios`
 --
 
@@ -300,4 +321,4 @@ CREATE TABLE `tb_usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-16 22:44:14
+-- Dump completed on 2025-03-18  0:59:18
